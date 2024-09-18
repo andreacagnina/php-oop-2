@@ -17,25 +17,20 @@ $cats = new Category('Cats', '<i class="fa-solid fa-cat"></i>');
 var_dump($dogs);
 var_dump($cats);
 
-class Type extends PetsProduct
-{
-    public $food;
-    public $toys;
-    public $beds;
-}
+
 class PetsProduct
 {
     public $name;
-    public $categories;
-    public $type;
+    public $img;
+    public $category;
     public $price;
 
 
-    function __construct($name, Category $categories, $type, $price)
+    function __construct($name, $img, Category $category, $price)
     {
         $this->name = $name;
-        $this->categories = $categories;
-        $this->type = $type;
+        $this->img = $img;
+        $this->category = $category;
         $this->price = $price;
     }
 }
