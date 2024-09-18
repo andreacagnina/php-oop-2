@@ -1,13 +1,24 @@
 <?php
 class PetsProduct
 {
-    public $title;
+    public $name;
     public $categories;
     public $type;
     public $price;
+
+    function __construct($name, Category $categories, $type, $price)
+    {
+        $this->name = $name;
+        $this->categories = $categories;
+        $this->type = $type;
+        $this->price = $price;
+    }
 }
 
-class Type
+$Prodotto = new PetsProduct('Umido', new Category('dog', 'cat'), 'cibo', '20');
+var_dump($Prodotto);
+
+class Type extends PetsProduct
 {
     public $food;
     public $toys;
