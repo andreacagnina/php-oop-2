@@ -20,13 +20,13 @@ $cats = new Category('For Cats', '<i class="fa-solid fa-cat"></i>');
 
 class PetsProduct
 {
-    public $name;
     public $img;
+    public $name;
     public $categories = [];
     public $price;
 
 
-    function __construct($name, $img, array $categories, $price)
+    function __construct($img, $name, array $categories, $price)
     {
         $this->img = $img;
         $this->name = $name;
@@ -40,6 +40,10 @@ class PetsProduct
             $caneEgatto[] = $category->animal . " " . $category->icon;
         }
         return implode(', ', $caneEgatto);
+    }
+    function getProductDetails()
+    {
+        return '';
     }
 }
 
@@ -56,10 +60,16 @@ class Food extends PetsProduct
         $this->ingredients = $ingredients;
         $this->weight = $weight;
     }
+    function getProductDetails()
+    {
+        return "<p>Gusto: {$this->taste}</p>
+                <p>Ingredienti: {$this->ingredients}</p>
+                <p>Peso: {$this->weight}</p>";;
+    }
 }
 
 $croccantiniAlSalmone = new Food('https://www.robinsonpetshop.it/22977-thickbox_default/amanova-adult-sensitive-salmone-per-cani.jpg', 'Amanova Adult Sensitive Salmone per Cani', [$dogs], 'Salmon', 'Salmone preparato fresco 70% (122 kg di salmone preparato fresco per elaborare 100 kg di prodotto), piselli verdi interi, patata disidratata, proteina di patata, idrolizzato di salmone, lieviti (Saccharomy- ces cerevisiae), fibra di mela, semi di lino (fonte naturale di acidi grassi ω3), minerali, patata dolce, tapioca, olio di pesce (protetto da tocoferoli naturali), glucosamina 1400 mg/kg, kale disidratato, krill antartico, alga kelp, spirulina, cicoria (fonte di FOS) 1000 mg/kg, parete cellulare del lievito idrolizzato (fonte di MOS) 1000 mg/kg, condroitina 1000 mg/kg, zucca disidratata 1000 mg/kg, broccolo disidratato 1000 mg/kg, mirtilli rossi 1000 mg/kg, mirtilli blu 1000 mg/kg, rosmarino 250 mg/kg, yucca schidigera.', '10 KG', '75.99€');
-var_dump($croccantiniAlSalmone);
+//var_dump($croccantiniAlSalmone);
 
 class Toy extends PetsProduct
 {
@@ -74,10 +84,16 @@ class Toy extends PetsProduct
         $this->color = $color;
         $this->dimensions = $dimensions;
     }
+    function getProductDetails()
+    {
+        return "<p>Materiale: {$this->material}</p>
+                <p>Colore: {$this->color}</p>
+                <p>Dimensioni: {$this->dimensions}</p>";
+    }
 }
 
-$bacchettaPiuma = new Toy('https://m.media-amazon.com/images/I/61bf1yoHyKL._AC_SL1100_.jpg', 'Giocattolo a bacchetta interattiva in piuma di gatto con palo telescopico', [$cats], 'plastic', 'multicolor', '15 inches', '15€');
-var_dump($bacchettaPiuma);
+$bacchettaPiuma = new Toy('https://m.media-amazon.com/images/I/61bf1yoHyKL._AC_SL1100_.jpg', 'Giocattolo a bacchetta interattiva in piuma', [$cats], 'plastic', 'multicolor', '15 inches', '15€');
+//var_dump($bacchettaPiuma);
 
 class Bed extends PetsProduct
 {
@@ -92,10 +108,17 @@ class Bed extends PetsProduct
         $this->color = $color;
         $this->dimensions = $dimensions;
     }
+    function getProductDetails()
+    {
+        return "<p>Materiale: {$this->material}</p>
+                <p>Colore: {$this->color}</p>
+                <p>Dimensioni: {$this->dimensions}</p>";
+    }
 }
-$cucciaMorbida = new Bed('https://i0.wp.com/www.zoologos.net/wp-content/uploads/2020/08/htb1ldyjrfzqk1rjszfoq6zfcxxa3.jpg?fit=800%2C800&ssl=1', 'Cuccia Gatto per Gatti', [$cats, $dogs], 'cotton', 'black', '48x48x48 cm', '50€');
-var_dump($cucciaMorbida)
+$cucciaMorbida = new Bed('https://i0.wp.com/www.zoologos.net/wp-content/uploads/2020/08/htb1ldyjrfzqk1rjszfoq6zfcxxa3.jpg?fit=800%2C800&ssl=1', 'Cuccia Gatto per Gatti e Cani', [$cats, $dogs], 'cotton', 'black', '48x48x48 cm', '50€');
+//var_dump($cucciaMorbida);
 
+$Arrayprodotti = [$croccantiniAlSalmone, $bacchettaPiuma, $cucciaMorbida];
 
 ?>
 <!DOCTYPE html>
@@ -110,11 +133,30 @@ var_dump($cucciaMorbida)
 </head>
 
 <body>
-    <!-- Immaginare quali sono le classi necessarie per creare uno shop online con le seguenti caratteristiche:
-L'e-commerce vende prodotti per animali.
-I prodotti sono categorizzati, le categorie sono Cani o Gatti.
-I prodotti saranno oltre al cibo, anche giochi, cucce, etc.Stampiamo delle card contenenti i dettagli dei prodotti, come immagine, titolo, prezzo, icona della categoria ed il tipo di articolo che si sta visualizzando (prodotto, cibo, gioco, cuccia).Cominciate a fare prima le classi. Per ogni classe creata, fate una o due istanze per vedere il risultato con il var_dump. Una volta create tutte le classi verificate che siano coerenti con quanto scritto nell'esercizio, allora create delle strutture dati da mostrare in pagina. -->
-
+    <div class="container my-5">
+        <div class="row">
+            <?php { ?>
+                <?php foreach ($Arrayprodotti as $prodotto) {
+                    echo "<div class='col-4'>";
+                    echo "<div class='card h-100'>";
+                    echo "<img class='card-img-top w-75 ms-auto me-auto' src='{$prodotto->img}'>";
+                    echo "<div class='card-body'>";
+                    echo "<h2 class='text-center'>{$prodotto->name}</h2>";
+                    echo "<div class='card-body mt-5'>";
+                    echo "<p>Prezzo: {$prodotto->price}</p>";
+                    echo "<p>Categorie: {$prodotto->getAllCategories()}</p>";
+                    echo "</div>";
+                    echo "<div class='card-body'>";
+                    echo "<p>{$prodotto->getProductDetails()}</p>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                    echo "</div>";
+                } ?>
+            <?php } ?>
+        </div>
+    </div>
+    </div>
 </body>
 
 </html>
