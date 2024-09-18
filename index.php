@@ -39,7 +39,7 @@ class PetsProduct
         foreach ($this->categories as $category) {
             $caneEgatto[] = $category->animal . " " . $category->icon;
         }
-        return implode(', ', $caneEgatto);
+        return implode(' and ', $caneEgatto);
     }
     function getProductDetails()
     {
@@ -62,9 +62,9 @@ class Food extends PetsProduct
     }
     function getProductDetails()
     {
-        return "<p>Gusto: {$this->taste}</p>
-                <p>Ingredienti: {$this->ingredients}</p>
-                <p>Peso: {$this->weight}</p>";;
+        return "<p><strong>Gusto:</strong> {$this->taste}</p>
+                <p class='ovf'><strong>Ingredienti:</strong> {$this->ingredients}</p>
+                <p><strong>Peso:</strong> {$this->weight}</p>";
     }
 }
 
@@ -86,13 +86,13 @@ class Toy extends PetsProduct
     }
     function getProductDetails()
     {
-        return "<p>Materiale: {$this->material}</p>
-                <p>Colore: {$this->color}</p>
-                <p>Dimensioni: {$this->dimensions}</p>";
+        return "<p><strong>Materiale:</strong> {$this->material}</p>
+                <p><strong>Colore:</strong> {$this->color}</p>
+                <p><strong>Dimensioni:</strong> {$this->dimensions}</p>";
     }
 }
 
-$bacchettaPiuma = new Toy('https://m.media-amazon.com/images/I/61bf1yoHyKL._AC_SL1100_.jpg', 'Giocattolo a bacchetta interattiva in piuma', [$cats], 'plastic', 'multicolor', '15 inches', '15€');
+$bacchettaPiuma = new Toy('https://m.media-amazon.com/images/I/61bf1yoHyKL._AC_SL1100_.jpg', 'Giocattolo a bacchetta interattiva in piuma', [$cats], 'Plastic', 'Multicolor', '15 inches', '15€');
 //var_dump($bacchettaPiuma);
 
 class Bed extends PetsProduct
@@ -110,12 +110,12 @@ class Bed extends PetsProduct
     }
     function getProductDetails()
     {
-        return "<p>Materiale: {$this->material}</p>
-                <p>Colore: {$this->color}</p>
-                <p>Dimensioni: {$this->dimensions}</p>";
+        return "<p><strong>Materiale:</strong> {$this->material}</p>
+                <p><strong>Colore:</strong> {$this->color}</p>
+                <p><strong>Dimensioni:</strong> {$this->dimensions}</p>";
     }
 }
-$cucciaMorbida = new Bed('https://i0.wp.com/www.zoologos.net/wp-content/uploads/2020/08/htb1ldyjrfzqk1rjszfoq6zfcxxa3.jpg?fit=800%2C800&ssl=1', 'Cuccia Gatto per Gatti e Cani', [$cats, $dogs], 'cotton', 'black', '48x48x48 cm', '50€');
+$cucciaMorbida = new Bed('https://i0.wp.com/www.zoologos.net/wp-content/uploads/2020/08/htb1ldyjrfzqk1rjszfoq6zfcxxa3.jpg?fit=800%2C800&ssl=1', 'Cuccia Gatto per Gatti e Cani', [$cats, $dogs], 'Cotton', 'Black', '48x48x48 cm', '50€');
 //var_dump($cucciaMorbida);
 
 $Arrayprodotti = [$croccantiniAlSalmone, $bacchettaPiuma, $cucciaMorbida];
@@ -129,33 +129,44 @@ $Arrayprodotti = [$croccantiniAlSalmone, $bacchettaPiuma, $cucciaMorbida];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
     <title>Shop Online</title>
 </head>
 
 <body>
     <div class="container my-5">
         <div class="row">
-            <?php { ?>
-                <?php foreach ($Arrayprodotti as $prodotto) {
-                    echo "<div class='col-4'>";
-                    echo "<div class='card h-100'>";
-                    echo "<img class='card-img-top w-75 ms-auto me-auto' src='{$prodotto->img}'>";
-                    echo "<div class='card-body'>";
-                    echo "<h2 class='text-center'>{$prodotto->name}</h2>";
-                    echo "<div class='card-body mt-5'>";
-                    echo "<p>Prezzo: {$prodotto->price}</p>";
-                    echo "<p>Categorie: {$prodotto->getAllCategories()}</p>";
-                    echo "</div>";
-                    echo "<div class='card-body'>";
-                    echo "<p>{$prodotto->getProductDetails()}</p>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                    echo "</div>";
-                } ?>
+            <div class="col-12 mb-2">
+                <h1 class="text-center"><u>Shop Online</u></h1>
+            </div>
+        </div>
+        <div class="row">
+
+            <?php foreach ($Arrayprodotti as $prodotto) { ?>
+                <div class="col-4">
+                    <div class="card">
+                        <img src="<?php echo $prodotto->img ?>" alt="ImgProduct">
+                        <hr>
+                        <div class="card-body title">
+                            <h2 class='text-center'><?php echo $prodotto->name ?></h2>
+                        </div>
+                        <hr>
+                        <div class="card-body details">
+                            <p><strong>Prezzo:</strong> <?php echo $prodotto->price ?></p>
+                            <p><strong>Categorie:</strong> <?php echo $prodotto->getAllCategories() ?></p>
+                        </div>
+                        <hr>
+                        <div class="card-body extra-details">
+                            <p><?php echo $prodotto->getProductDetails() ?></p>
+                        </div>
+                        <hr>
+                        <div class="card-body sm">
+                            <button type="submit" class="btn btn-primary">Buy Now</button>
+                        </div>
+                    </div>
+                </div>
             <?php } ?>
         </div>
-    </div>
     </div>
 </body>
 
