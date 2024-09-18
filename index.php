@@ -11,8 +11,8 @@ class Category
     }
 }
 
-$dogs = new Category('Dogs', '<i class="fa-solid fa-dog"></i>');
-$cats = new Category('Cats', '<i class="fa-solid fa-cat"></i>');
+$dogs = new Category('For Dogs', '<i class="fa-solid fa-dog"></i>');
+$cats = new Category('For Cats', '<i class="fa-solid fa-cat"></i>');
 
 var_dump($dogs);
 var_dump($cats);
@@ -28,10 +28,23 @@ class PetsProduct
 
     function __construct($name, $img, Category $category, $price)
     {
-        $this->name = $name;
         $this->img = $img;
+        $this->name = $name;
         $this->category = $category;
         $this->price = $price;
+    }
+}
+
+class Food extends PetsProduct
+{
+    public $taste;
+    public $ingredients;
+
+    function __construct($img, $name, Category $category, $taste, $ingredients, $price)
+    {
+        parent::__construct($img, $name, $category, $price);
+        $this->taste = $taste;
+        $this->ingredients = $ingredients;
     }
 }
 
