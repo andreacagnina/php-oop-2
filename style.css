@@ -28,3 +28,8 @@
 hr:last-of-type {
     margin-bottom: 0;
 }
+
+.badge {
+    width: 20%;
+    margin: 0 auto;
+}
