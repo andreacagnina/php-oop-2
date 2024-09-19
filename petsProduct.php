@@ -1,10 +1,12 @@
 <?php
+require_once __DIR__ . '/price.php';
 class PetsProduct
 {
+    use price;
+
     public $img;
     public $name;
     public $categories = [];
-    public $price;
     public $pieces;
 
 
@@ -13,7 +15,7 @@ class PetsProduct
         $this->img = $img;
         $this->name = $name;
         $this->categories = $categories;
-        $this->price = $price;
+        $this->setPrice($price);
         $this->pieces = $pieces;
     }
 
@@ -28,7 +30,8 @@ class PetsProduct
 
     function getProductDetails()
     {
-        return '';
+        return '<p><strong>Nome:</strong> {$this->name}</p>
+                <p><strong>Prezzo:</strong> {$this->getPrice()}</p>';
     }
 
     public function setPieces($stock)

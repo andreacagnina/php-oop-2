@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/products.php';
+require_once __DIR__ . '/price.php';
 // class Category
 // {
 //     public $animal;
@@ -168,7 +169,7 @@ require_once __DIR__ . '/products.php';
                         </div>
                         <hr>
                         <div class="card-body details">
-                            <p><strong>Price:</strong> <?php echo $prodotto->price ?></p>
+                            <p><strong>Price:</strong> <?php echo $prodotto->getPrice() ?></p>
                             <p><strong>Category:</strong> <?php echo $prodotto->getAllCategories() ?></p>
                         </div>
                         <hr>
