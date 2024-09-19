@@ -8,15 +8,18 @@ class PetsProduct
     public $name;
     public $categories = [];
     public $pieces;
-
-
     function __construct($img, $name, array $categories, $price, $pieces)
     {
         $this->img = $img;
         $this->name = $name;
         $this->categories = $categories;
-        $this->setPrice($price);
         $this->pieces = $pieces;
+
+        try {
+            $this->setPrice($price);
+        } catch (Exception $e) {
+            echo 'Alert:' . " " . $e->getMessage();
+        }
     }
 
     function getAllCategories()
@@ -30,8 +33,8 @@ class PetsProduct
 
     function getProductDetails()
     {
-        return '<p><strong>Nome:</strong> {$this->name}</p>
-                <p><strong>Prezzo:</strong> {$this->getPrice()}</p>';
+        return '<p><strong>Nome:</strong>' . $this->name . '</p>
+                <p><strong>Prezzo:</strong>' . $this->getPrice() . '</p>';
     }
 
     public function setPieces($stock)

@@ -5,8 +5,8 @@ trait Price
 
     function setPrice($price)
     {
-        if (!is_numeric(($price)) || ($price <= 0)) {
-            throw new Exception('Non puoi inserire un valore diverso da un numero e il prezzo non può essere inferiore o uguale a 0');
+        if (!is_numeric($price) || ($price <= 0)) {
+            throw new Exception('Non siamo qui a regalare roba ai nostri clienti!');
         }
         $this->price = $price;
     }

@@ -15,7 +15,12 @@ class Food extends PetsProduct
         parent::__construct($img, $name, $category, $price, $pieces);
         $this->taste = $taste;
         $this->ingredients = $ingredients;
-        $this->setWeight($weight, $unit);
+
+        try {
+            $this->setWeight($weight, $unit);
+        } catch (Exception $e) {
+            echo 'Alert:' . " " . $e->getMessage();
+        }
     }
     function getProductDetails()
     {
